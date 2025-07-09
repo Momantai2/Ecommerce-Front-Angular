@@ -1,0 +1,46 @@
+<div class="main-content">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+    <h1 style="margin: 0; flex-grow: 1;">Lista de Categorias</h1>
+
+    <button class="btn btn-primary" style="white-space: nowrap;" (click)="abrirModalCrear()">Añadir Categoria</button>
+
+    <app-modal-form #modal [title]="modalTitulo" (onSave)="guardar()">
+      <app-modal-categoria [categoria]="itemSeleccionado" [readonly]="soloLectura"></app-modal-categoria>
+    </app-modal-form>
+  </div>
+
+  <table class="table" style="table-layout: fixed;">
+    <thead> 
+      <tr>
+           <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of categoria">
+        <td>{{ s.nombre }}</td>
+        <td>{{ s.descripcion }}</td>
+        <td> <span [ngClass]="s.estado ? 'badge bg-success' : 'badge bg-danger'">
+    {{ s.estado ? 'Activo' : 'Inactivo' }}
+  </span>
+        <td>
+  <div class="dropdown">
+   <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+  ⋮
+</button>
+    <ul class="dropdown-menu">
+            <li><a class="dropdown-item"  (click)="abrirModalDetalle(s)">Ver Detalles</a></li>
+            <li><a class="dropdown-item" (click)="abrirModalEditar(s)">Editar</a></li>
+          <li><a class="dropdown-item text-danger" (click)="s.idCategoria !== undefined && confirmarEliminar(s.idCategoria)">Eliminar</a></li>
+       </ul>
+  </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<app-confirm-modal #confirmModal (onConfirm)="eliminar()"></app-confirm-modal>

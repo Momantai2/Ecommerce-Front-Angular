@@ -1,0 +1,33 @@
+.filtros-orden {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: 0.5rem 1rem;
+  background-color: #f8f9fa; /* color claro de fondo */
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.filtros-orden label {
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+}
+
+.filtros-orden select {
+  padding: 0.4rem 0.8rem;
+  border: 1.5px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filtros-orden select:hover,
+.filtros-orden select:focus {
+  border-color: #3b82f6; /* azul para foco */
+  box-shadow: 0 0 6px #3b82f6aa;
+  outline: none;
+}

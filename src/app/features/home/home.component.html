@@ -1,0 +1,24 @@
+<div class="main-content">
+  <div>
+    <h1>Bienvenido</h1>
+    <p>Este es el contenido principal de la página.</p>
+
+    <div class="botones-categorias">
+  <button (click)="seleccionarCategoria(null)" [class.active]="categoriaSeleccionadaId === null">Todas</button>
+  <button *ngFor="let cat of categorias"
+          (click)="seleccionarCategoria(cat.idCategoria)"
+          [class.active]="categoriaSeleccionadaId === cat.idCategoria">
+    {{ cat.nombre }}
+  </button>
+</div>
+
+
+
+<app-listadoproductos 
+  [categoriaSeleccionadaId]="categoriaSeleccionadaId"
+  [categorias]="categorias">
+</app-listadoproductos>
+  </div>
+
+
+</div>

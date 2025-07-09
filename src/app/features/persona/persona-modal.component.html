@@ -1,0 +1,51 @@
+<form>
+  <div class="mb-3">
+    <label>Primer Nombre</label>
+    <input type="text" class="form-control" [(ngModel)]="persona.primerNombre" name="primerNombre" [readonly]="readonly">
+  </div>
+  <div class="mb-3">
+    <label>Segundo Nombre</label>
+    <input type="text" class="form-control" [(ngModel)]="persona.segundoNombre" name="segundoNombre" [readonly]="readonly">
+  </div>
+  <div class="mb-3">
+    <label>Tercer Nombre</label>
+    <input type="text" class="form-control" [(ngModel)]="persona.tercernombre" name="tercernombre" [readonly]="readonly">
+  </div>
+  <div class="mb-3">
+    <label>Apellido Paterno</label>
+    <input type="text" class="form-control" [(ngModel)]="persona.apellidoPaterno" name="apellidoPaterno" [readonly]="readonly">
+  </div>
+  <div class="mb-3">
+    <label>Apellido Materno</label>
+    <input type="text" class="form-control" [(ngModel)]="persona.apellidoMaterno" name="apellidoMaterno" [readonly]="readonly">
+  </div>
+  <div class="mb-3">
+    <label>DNI</label>
+    <input type="text" class="form-control" [(ngModel)]="persona.dni" name="dni" [readonly]="readonly">
+  </div>
+  <div class="mb-3">
+    <label>Fecha de Nacimiento</label>
+    <input type="date" class="form-control" [(ngModel)]="persona.fechaNacimiento" name="fechaNacimiento" [readonly]="readonly">
+  </div>
+  <div class="mb-3">
+    <label>Sexo</label>
+    <select
+  class="form-select"
+  id="sexo"
+  [(ngModel)]="persona.idSexo"
+  name="sexo"
+  [disabled]="readonly"
+>
+  <option *ngFor="let sexo of sexos" [value]="sexo.idSexo">{{ sexo.nombre }}</option>
+</select>
+
+  </div>
+  <div class="mb-3">
+    <label>Teléfono</label>
+    <input type="text" class="form-control" [(ngModel)]="persona.telefono" name="telefono" [readonly]="readonly">
+  </div>
+  <div class="mb-3">
+    <label>Email</label>
+    <input type="email" class="form-control" [(ngModel)]="persona.email" name="email" [readonly]="readonly">
+  </div>
+</form>

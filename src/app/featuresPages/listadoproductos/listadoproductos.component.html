@@ -1,0 +1,39 @@
+<div class="container mt-4">
+ <div class="filtros-orden" >
+  <label for="ordenPrecio">Ordenar por precio:</label>
+<select id="ordenPrecio" (change)="ordenarPorPrecio($any($event.target).value)">
+    <option value="asc">Menor a Mayor</option>
+    <option value="desc">Mayor a Menor</option>
+  </select>
+</div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" *ngFor="let producto of productosFiltrados">
+            <div class="card h-100 shadow-sm">
+            <img [src]="'http://localhost:8080' + producto.imagenUrl" 
+     alt="{{ producto.nombre }}" 
+     style="width: 100%; height: 150px; object-fit: contain; background-color: #f0f0f0;">
+
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <p class="card-text">{{ producto.descripcion }}</p>
+                    <p class="card-text"><strong>Precio:</strong> S/ {{ producto.precio }}</p>
+                    <p class="card-text"><strong>Stock:</strong> {{ producto.stock }}</p>
+                    <p class="card-text"><strong>Categoría:</strong> {{ obtenerNombreCategoria(producto.idCategoria) }}</p> 
+                    <p class="card-text"><strong>Unidad Medida:</strong> {{ obtenerNombreUnidad(producto.idUnidadMedida) }}</p>
+                 <button
+  class="btn w-100 mt-2"
+  [ngClass]="producto.stock > 0 ? 'btn-primary' : 'btn-secondary'"
+  [disabled]="producto.stock === 0"
+  (click)="producto.stock > 0 && agregarAlCarrito(producto)">
+  {{ producto.stock > 0 ? 'Agregar al carrito' : 'Producto agotado' }}
+</button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-alert-modal></app-alert-modal>

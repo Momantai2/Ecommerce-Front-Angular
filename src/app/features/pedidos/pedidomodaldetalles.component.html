@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <h5 class="modal-title">Detalles del Pedido #{{ pedido.idPedido }}</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+
+<div class="modal-body">
+  <p><strong>Usuario:</strong> {{ pedido.nombreUsuario }}</p>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Imagen</th>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Precio Unitario</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of pedido.items">
+        <td>
+          <img
+            [src]="apiUrl + item.imagenUrl"
+            alt="{{ item.nombreProducto }}"
+            style="width: 80px; height: 80px; object-fit: contain;"
+          />
+        </td>
+        <td>{{ item.nombreProducto || 'Producto desconocido' }}</td>
+        <td>{{ item.cantidad }}</td>
+        <td>S/{{ item.precioUnitario }}</td>
+        <td> S/{{ (item.cantidad * item.precioUnitario) }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h5 class="text-end">Total: S/{{ getTotal()  }}</h5>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-secondary" (click)="activeModal.close()">Cerrar</button>
+</div>

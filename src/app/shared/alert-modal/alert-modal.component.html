@@ -1,0 +1,18 @@
+<ng-template #alertTemplate let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title">{{ title }}</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+      </div>
+      <div class="modal-body">
+        <p>{{ message }}</p>
+        <ul class="list-group" *ngIf="details.length > 0">
+  <li class="list-group-item" *ngFor="let detail of details">
+    {{ detail }}
+  </li>
+</ul>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" (click)="close()">Aceptar</button>
+      </div>
+    </ng-template>

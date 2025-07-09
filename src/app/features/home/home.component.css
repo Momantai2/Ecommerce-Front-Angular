@@ -1,0 +1,30 @@
+ /* Contenido principal */
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+      flex: 1;
+    }
+    .botones-categorias {
+  margin-bottom: 1rem;
+}
+
+.botones-categorias button {
+  margin-right: 8px;
+  padding: 8px 16px;
+  border: none;
+  background-color: #ddd;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.botones-categorias button:hover {
+  background-color: #ccc;
+}
+
+.botones-categorias button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+ 

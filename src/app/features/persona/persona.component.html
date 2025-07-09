@@ -1,0 +1,52 @@
+<div class="main-content">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+    <h1 style="margin: 0; flex-grow: 1;">Lista de Personas</h1>
+
+    <button class="btn btn-primary" style="white-space: nowrap;" (click)="abrirModalCrear()">Añadir Persona</button>
+
+    <app-modal-form #modal [title]="modalTitulo" (onSave)="guardarPersona()">
+      <app-modal-persona [persona]="personaSeleccionada" [readonly]="soloLectura" [sexos]="sexos"></app-modal-persona>
+    </app-modal-form>
+  </div>
+
+  <table class="table" style="table-layout: fixed;">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>DNI</th>
+        <th>Fecha Nacimiento</th>
+        <th>Sexo</th>
+        <th>Telefono</th>
+        <th>Email</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of personas">
+        <td>{{ p.primerNombre }} {{ p.segundoNombre }} {{ p.tercernombre }}</td>
+        <td>{{ p.apellidoPaterno }} {{ p.apellidoMaterno }}</td>
+        <td>{{ p.dni }}</td>  
+        <td>{{ p.fechaNacimiento }}</td>
+        <td>{{ obtenerNombreSexo(p.idSexo) }}</td>
+        <td>{{ p.telefono }}</td>
+        <td>{{ p.email }}</td>
+        <td>
+  <div class="dropdown">
+   <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+  ⋮
+</button>
+
+    <ul class="dropdown-menu">
+            <li><a class="dropdown-item"  (click)="abrirModalDetalle(p)">Ver Detalles</a></li>
+            <li><a class="dropdown-item" (click)="abrirModalEditar(p)">Editar</a></li>
+          <li><a class="dropdown-item text-danger" (click)="p.idPersona !== undefined && confirmarEliminar(p.idPersona)">Eliminar</a></li>
+       </ul>
+  </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-confirm-modal #confirmModal (onConfirm)="eliminar()"></app-confirm-modal>

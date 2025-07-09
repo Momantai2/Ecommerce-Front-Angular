@@ -1,0 +1,14 @@
+# Node.js
+node_modules/
+dist/
+.env
+
+# Angular build output
+.angular/
+.idea/
+.vscode/
+*.log
+.DS_Store
+
+# Compiled output
+out-tsc/

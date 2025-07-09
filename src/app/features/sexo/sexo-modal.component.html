@@ -1,0 +1,15 @@
+<form>
+  <div class="mb-3">
+    <label>Descripcion</label>
+    <input type="text" class="form-control" [(ngModel)]="sexo.nombre" name="nombre" [readonly]="readonly">
+  </div>
+  <div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" id="estadoSwitch" [(ngModel)]="sexo.estado" name="estado" [disabled]="readonly" />
+  <label class="form-check-label" for="estadoSwitch">
+    {{ sexo.estado ? 'Activo' : 'Inactivo' }}
+  </label>
+</div>
+
+<app-alert-modal #alertModal></app-alert-modal>
+
+</form>

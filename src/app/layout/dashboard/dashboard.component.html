@@ -1,0 +1,21 @@
+<div class="sidebar">
+  <h2>Mi Sitio</h2>
+  <a routerLink="/">Inicio</a>
+  <a *ngIf="isAdmin()" routerLink="/dashresumen">Dashboard Admin</a>
+
+  <a *ngIf="isAdmin()"  (click)="toggleSubmenu()">Mantenimiento ▾</a>
+  <div class="submenu" *ngIf="showSubmenu">
+    <a routerLink="/persona">Persona</a>
+    <a routerLink="/producto">producto</a>
+     <a routerLink="/sexo">Sexo</a>
+      <a routerLink="/rol">Rol</a>
+            <a routerLink="/usuario">Usuario</a>
+                  <a routerLink="/unidadMedida">Unidad de Medida</a>
+                                                <a routerLink="/categoria">Categoria</a>
+
+  </div>
+
+  <a *ngIf="isLoggedIn"  routerLink="/pedidos">pedidos</a>
+<a *ngIf="isLoggedIn" (click)="logout()">Cerrar Sesión</a>
+</div>
+    

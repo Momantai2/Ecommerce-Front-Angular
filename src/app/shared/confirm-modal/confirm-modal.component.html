@@ -1,0 +1,13 @@
+<ng-template #confirmTemplate let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Confirmar</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="cancel()"></button>
+  </div>
+  <div class="modal-body">
+    <p>{{ message }}</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+    <button class="btn btn-danger" (click)="confirm()">Eliminar</button>
+  </div>
+</ng-template>

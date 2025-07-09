@@ -1,0 +1,74 @@
+  <form>
+    <div class="mb-3">
+      <label>Nombre</label>
+      <input type="text" class="form-control" [(ngModel)]="producto.nombre" name="nombre" [readonly]="readonly">
+    </div>
+    <div class="mb-3">
+      <label>Descripcion</label>
+      <input type="text" class="form-control" [(ngModel)]="producto.descripcion" name="descripcion" [readonly]="readonly">
+    </div>
+
+     <div class="mb-3">
+      <label>Precio</label>
+      <input type="number" class="form-control" [(ngModel)]="producto.precio" name="precio" [readonly]="readonly">
+    </div>
+
+    <div class="mb-3">
+  <label>Imagen</label>
+  <input
+    type="file"
+    class="form-control"
+    [disabled]="readonly"
+    (change)="onFileSelected($event)"
+    accept="image/*"
+  />
+</div>
+
+<div class="mb-3" *ngIf="producto.imagenUrl">
+  <label>Vista previa:</label>
+  <img [src]="'http://localhost:8080' + producto.imagenUrl" class="img-thumbnail" style="max-width: 200px;" />
+</div>
+
+
+    <div class="mb-3">
+      <label>Stock</label>
+      <input type="text" class="form-control" [(ngModel)]="producto.stock" name="stock" [readonly]="readonly">
+    </div>
+
+      <div class="mb-3">
+      <label>Categoria</label>
+      <select
+    class="form-select"
+    id="categoria"
+    [(ngModel)]="producto.idCategoria"
+    name="categoria"
+    [disabled]="readonly"
+  >
+    <option *ngFor="let categoria of categorias" [value]="categoria.idCategoria">{{ categoria.nombre }}</option>
+  </select>
+
+    </div>
+
+    <div class="mb-3">
+      <label>Unidad Medida</label>
+      <select
+    class="form-select"
+    id="unidadMedida"
+    [(ngModel)]="producto.idUnidadMedida"
+    name="unidadMedida"
+    [disabled]="readonly"
+  >
+    <option *ngFor="let unidad of medidas" [value]="unidad.idUnidadMedida">{{ unidad.nombre }}</option>
+  </select>
+
+    </div>
+
+    <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" id="estadoSwitch" [(ngModel)]="producto.estado" name="estado" [disabled]="readonly" />
+    <label class="form-check-label" for="estadoSwitch">
+      {{ producto.estado ? 'Activo' : 'Inactivo' }}
+    </label>
+  </div>
+
+  <app-alert-modal #alertModal></app-alert-modal>
+  </form>

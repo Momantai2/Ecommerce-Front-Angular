@@ -1,0 +1,51 @@
+<div class="main-content">
+
+   <div *ngIf="carrito">
+      <!-- <h2>Carrito de Usuario</h2>
+      <p>ID Carrito: {{ carrito.idCarrito }}</p>
+      <p>Usuario ID: {{ carrito.idUsuario }}</p> -->
+
+      <table class="table">
+         <thead>
+            <tr>
+               <th>Producto</th>
+               <th>Cantidad</th>
+               <th>Precio Unitario</th>
+               <th>Total</th>
+               <th>Acciones</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr *ngFor="let item of carrito.items">
+               <td> {{ item.nombre }} <img [src]=" apiUrl + item.imagenUrl" style="width: 100%; height: 100px; object-fit: contain; ">
+</td>
+               <td>
+        <button class="btn btn-outline-secondary btn-sm" (click)="disminuir(item)">−</button>
+                  {{ item.cantidad }}
+        <button class="btn btn-outline-secondary btn-sm" (click)="aumentar(item)">+</button>
+               </td>
+               <td>S/. {{ item.precio }}</td>
+               <td>S/. {{ item.precio * item.cantidad }}</td>
+               <td>
+  <button class="btn btn-danger btn-sm" (click)="eliminar(item)">🗑 Eliminar</button>                  
+               </td>
+            </tr>
+         </tbody>
+         <tfoot>
+            <tr>
+               <td colspan="4" class="text-end"><strong>Total:</strong></td>
+               <td><strong>S/. {{ calcularTotal() }}</strong></td>
+            </tr>
+         </tfoot>
+
+      </table>
+    <button class="btn btn-success" (click)="pagar()">💳 Pagar</button>
+
+   </div>
+</div>
+<div *ngIf="!carrito">
+   <p>No hay carrito para este usuario.</p>
+</div>
+<app-alert-modal></app-alert-modal>
+<app-confirm-modal #confirmModal></app-confirm-modal>
+

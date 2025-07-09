@@ -1,0 +1,47 @@
+  <form>
+    <div class="mb-3">
+      <label>Nombre Usuario</label>
+      <input type="text" class="form-control" [(ngModel)]="usuario.nombreUsuario" name="nombreUsuario" [readonly]="readonly">
+    </div>
+    <div class="mb-3">
+      <label>Contraseña</label>
+      <input type="text" class="form-control" [(ngModel)]="usuario.password" name="password" [readonly]="readonly">
+    </div>
+
+  <!-- Campo Persona -->
+<div class="mb-3" *ngIf="!ocultarCamposRelacionados">
+  <label>Persona</label>
+  <select
+    class="form-select"
+    [(ngModel)]="usuario.idPersona"
+    name="persona"
+    [disabled]="readonly || esRegistro"  
+  >
+    <option *ngFor="let persona of personas" [value]="persona.idPersona">{{ persona.primerNombre }}</option>
+  </select>
+</div>
+
+<!-- Campo Rol -->
+<div class="mb-3" *ngIf="!ocultarCamposRelacionados">
+  <label>Rol</label>
+  <select
+    class="form-select"
+    [(ngModel)]="usuario.idRol"
+    name="rol"
+    [disabled]="readonly || esRegistro" 
+  >
+    <option *ngFor="let rol of roles" [value]="rol.idRol">{{ rol.nombre }}</option>
+  </select>
+</div>
+
+
+
+    <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" id="estadoSwitch" [(ngModel)]="usuario.estado" name="estado" [disabled]="readonly" />
+    <label class="form-check-label" for="estadoSwitch">
+      {{ usuario.estado ? 'Activo' : 'Inactivo' }}
+    </label>
+  </div>
+
+  <app-alert-modal #alertModal></app-alert-modal>
+  </form>

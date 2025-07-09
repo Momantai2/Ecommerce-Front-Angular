@@ -1,0 +1,19 @@
+<form>
+  <div class="mb-3">
+    <label>Nombre</label>
+    <input type="text" class="form-control" [(ngModel)]="rol.nombre" name="nombre" [readonly]="readonly">
+  </div>
+   <div class="mb-3">
+    <label>Descripcion</label>
+    <input type="text" class="form-control" [(ngModel)]="rol.descripcion" name="descripcion" [readonly]="readonly">
+  </div>
+  <div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" id="estadoSwitch" [(ngModel)]="rol.estado" name="estado" [disabled]="readonly" />
+  <label class="form-check-label" for="estadoSwitch">
+    {{ rol.estado ? 'Activo' : 'Inactivo' }}
+  </label>
+</div>
+
+<app-alert-modal #alertModal></app-alert-modal>
+
+</form>

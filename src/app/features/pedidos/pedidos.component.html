@@ -1,0 +1,39 @@
+<div class="main-content">
+  <h2>Pedidos Realizados</h2>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <table *ngIf="pedidos.length > 0" class="table table-bordered mt-3">
+    <thead>
+      <tr>
+        <th *ngIf="isAdmin()">Usuario</th>
+        <th>Número de Pedido</th>
+        <th>Fecha</th>
+        <th>Total</th>
+        <th>Estado</th>
+        <th>Ver Detalles</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pedido of pedidos">
+        <td *ngIf="isAdmin()">{{ pedido.nombreUsuario }}</td>
+        <td>{{ pedido.idPedido }}</td>
+        <td>{{ pedido.fecha | date:'short' }}</td>
+        <td>{{  "S/ "+pedido.total}}</td>
+        <td>{{ pedido.estado }}</td>
+        <td>
+          <button class="btn btn-info btn-sm" (click)="verDetalles(pedido)">
+            Ver detalles
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!error && pedidos.length === 0" class="text-muted">
+    No hay pedidos registrados.
+  </div>
+
+  <!-- Aquí insertamos el modal -->
+  <app-alert-modal></app-alert-modal>
+</div>

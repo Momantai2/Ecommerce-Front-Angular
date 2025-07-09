@@ -1,0 +1,52 @@
+<div class="main-content">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+    <h1 style="margin: 0; flex-grow: 1;">Lista de Usuarios</h1>
+
+    <button class="btn btn-primary" style="white-space: nowrap;" (click)="abrirModalCrear()">Añadir Usuario</button>
+
+    <app-modal-form #modal [title]="modalTitulo" (onSave)="guardar()">
+      <app-modal-usuario [usuario]="itemSeleccionado" [readonly]="soloLectura" [personas]="personas" [roles]="roles"></app-modal-usuario>
+    </app-modal-form>
+  </div>
+
+  <table class="table" style="table-layout: fixed;">
+    <thead> 
+      <tr>
+        <th>Nombre Persona</th>
+        <th>Nombre Usuario</th>
+        <th>Contraseña</th>
+        <th>Rol</th>
+          <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of usuario">
+        <td>{{ obtenerNombrePersonas(s.idPersona) }}</td>
+        <td>{{ s.nombreUsuario }}</td>
+        <td>{{ s.password }}</td>
+        <td>{{ obtenerNombreRoles(s.idRol) }}</td>
+
+
+        <td> <span [ngClass]="s.estado ? 'badge bg-success' : 'badge bg-danger'">
+    {{ s.estado ? 'Activo' : 'Inactivo' }}
+  </span>
+        <td>
+  <div class="dropdown">
+   <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+  ⋮
+</button>
+    <ul class="dropdown-menu">
+            <li><a class="dropdown-item"  (click)="abrirModalDetalle(s)">Ver Detalles</a></li>
+            <li><a class="dropdown-item" (click)="abrirModalEditar(s)">Editar</a></li>
+          <li><a class="dropdown-item text-danger" (click)="s.idUsuario !== undefined && confirmarEliminar(s.idUsuario)">Eliminar</a></li>
+       </ul>
+  </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<app-confirm-modal #confirmModal (onConfirm)="eliminar()"></app-confirm-modal>

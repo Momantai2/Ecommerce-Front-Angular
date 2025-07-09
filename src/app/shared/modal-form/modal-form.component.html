@@ -1,0 +1,13 @@
+<ng-template #modalTemplate let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">{{ title }}</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <ng-content></ng-content> <!-- contenido personalizado aquí -->
+  </div>
+<div class="modal-footer" *ngIf="!hideSave">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="onSave.emit()">Guardar</button>
+  </div>
+</ng-template>

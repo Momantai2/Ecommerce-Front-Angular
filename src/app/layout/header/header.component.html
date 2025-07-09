@@ -1,0 +1,17 @@
+<div style="display: flex; align-items: center; justify-content: space-between;">
+  <h5 style="margin: 0 auto; text-align: center; flex-grow: 1;">Tienda sin nombre</h5>
+
+  <div *ngIf="isLoggedIn; else loggedOut">
+    Hola {{ username }}!
+  </div>
+
+  <ng-template #loggedOut>
+    <button class="btn btn-primary" routerLink="/login" style="margin-right: 10px;">
+      <i class="fas fa-user"></i> Identificate
+    </button>
+  </ng-template>
+
+  <button class="btn btn-primary" routerLink="/carrito">
+    <i class="fas fa-shopping-cart"></i> Carrito
+  </button>
+</div>
