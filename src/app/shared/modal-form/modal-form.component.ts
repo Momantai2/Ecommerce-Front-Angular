@@ -5,6 +5,8 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-modal-form',
   templateUrl: './modal-form.component.html',
+    styleUrls: ['./modal-form.component.css'],
+
   standalone: true,
   imports: [NgIf]
 })

@@ -11,7 +11,7 @@ import { CurrencyPipe, NgFor } from '@angular/common';
 })
 export class PedidoModalDetallesComponent {
   @Input() pedido!: PedidoResponseDTO;
-  apiUrl: string = 'http://localhost:8080'; // o la url base de tu api imágenes
+  apiUrl: string = 'http://localhost:8080'; 
 
   constructor(public activeModal: NgbActiveModal) {}
 

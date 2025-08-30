@@ -18,46 +18,81 @@ import { RoleGuard } from './core/guards/rol.guard';
 import { DeniedAccessComponent } from './shared/denied-access/denied-access.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { DashboardresumenComponent } from './featuresPages/dashboardresumen/dashboardresumen.component';
+import { SobrenosotrosComponent } from './featuresPages/sobrenosotros/sobrenosotros.component';
+import { EstadoComponent } from './features/estado/estado.component';
 
-export const routes: Routes = 
-[
- {
-  
-    path: '', 
-   //rutas con layout
+export const routes: Routes = [
+  {
+    path: '',
+    //rutas con layout
     component: MainLayoutComponent,
     children: [
-  { path: '', component: HomeComponent },
-  { path: 'producto', component: ProductoComponent , canActivate: [RoleGuard],data: { roles: [1] } },
-  { path: 'persona', component: PersonaComponent , canActivate: [RoleGuard],data: { roles: [1] }  },
-  { path: 'rol', component: RolComponent , canActivate: [RoleGuard],data: { roles: [1] } },
-  { path: 'usuario', component: UsuarioComponent , canActivate: [RoleGuard],data: { roles: [1] }  },
-  { path: 'unidadMedida', component: UnidadMedidaComponent , canActivate: [RoleGuard],data: { roles: [1] }  },
-  { path: 'categoria', component: CategoriaComponent , canActivate: [RoleGuard],data: { roles: [1] }  },
-  { path: 'sexo', component: SexoComponent , canActivate: [RoleGuard],data: { roles: [1] }  },
-  { path: 'carrito', component: CarritoComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'success', component:PagoexitosoComponent },
-  { path: 'pedidos', component:PedidosComponent },
-    { path: 'dashresumen', component:DashboardresumenComponent },
-
-    ]
+      { path: '', component: HomeComponent },
+      {
+        path: 'producto',
+        component: ProductoComponent,
+        canActivate: [RoleGuard],
+        data: { roles: [1] },
+      },
+      {
+        path: 'persona',
+        component: PersonaComponent,
+        canActivate: [RoleGuard],
+        data: { roles: [1] },
+      },
+      {
+        path: 'rol',
+        component: RolComponent,
+        canActivate: [RoleGuard],
+        data: { roles: [1] },
+      },
+      {
+        path: 'usuario',
+        component: UsuarioComponent,
+        canActivate: [RoleGuard],
+        data: { roles: [1] },
+      },
+      {
+        path: 'unidadMedida',
+        component: UnidadMedidaComponent,
+        canActivate: [RoleGuard],
+        data: { roles: [1] },
+      },
+      {
+        path: 'categoria',
+        component: CategoriaComponent,
+        canActivate: [RoleGuard],
+        data: { roles: [1] },
+      },
+      {
+        path: 'sexo',
+        component: SexoComponent,
+        canActivate: [RoleGuard],
+        data: { roles: [1] },
+      },
+      { path: 'carrito', component: CarritoComponent },
+      { path: 'home', component: HomeComponent },
+      { path: 'success', component: PagoexitosoComponent },
+      { path: 'pedidos', component: PedidosComponent },
+      { path: 'dashresumen', component: DashboardresumenComponent },
+      { path: 'nosotros', component: SobrenosotrosComponent },
+      { path: 'estado', component: EstadoComponent },
+    ],
   },
-  
-   //rutas sin layouts
 
-   { path: 'login', component: AuthComponent },
-      { path: 'personaregistro', component: PersonaModalComponent },
+  //rutas sin layouts
 
-   { path: 'register', component: RegisterComponent },
+  { path: 'login', component: AuthComponent },
+  { path: 'personaregistro', component: PersonaModalComponent },
 
-    {
+  { path: 'register', component: RegisterComponent },
+
+  {
     path: 'acceso-denegado',
-    component: DeniedAccessComponent // opcional
+    component: DeniedAccessComponent,
   },
   {
-  path: '**',
-  component: NotFoundComponent
-}
-
+    path: '**',
+    component: NotFoundComponent,
+  },
 ];

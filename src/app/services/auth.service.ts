@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from '../environment/environment';
+import { ItemCarritoRequestDTO } from '../models/item-carrito.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -31,6 +32,12 @@ private apiUrl = `${environment.apispirngUrl}/auth`;
       this.rol.next(res.rol); // ✅ actualizar el BehaviorSubject
     })
   );
+}
+
+transferirCarritoAlIniciarSesion(items: ItemCarritoRequestDTO[]): Observable<any> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.post(`${environment.apispirngUrl}/carritos/usuario/transferir`, items, { headers });
 }
 
 

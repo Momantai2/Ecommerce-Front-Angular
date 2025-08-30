@@ -11,7 +11,7 @@
         <th>Fecha</th>
         <th>Total</th>
         <th>Estado</th>
-        <th>Ver Detalles</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -21,11 +21,18 @@
         <td>{{ pedido.fecha | date:'short' }}</td>
         <td>{{  "S/ "+pedido.total}}</td>
         <td>{{ pedido.estado }}</td>
-        <td>
-          <button class="btn btn-info btn-sm" (click)="verDetalles(pedido)">
-            Ver detalles
-          </button>
-        </td>
+       <td>
+  <button class="btn btn-info btn-sm me-2" (click)="verDetalles(pedido)">
+    Ver detalles
+  </button>
+  <button class="btn btn-info btn-sm me-2" (click)="verBoleta(pedido)">
+    Ver Boleta
+  </button>
+  <button class="btn btn-info btn-sm" (click)="cancelarPedido(pedido)">
+    Cancelar pedido
+  </button>
+</td>
+
       </tr>
     </tbody>
   </table>
@@ -36,4 +43,5 @@
 
   <!-- Aquí insertamos el modal -->
   <app-alert-modal></app-alert-modal>
+  <app-confirm-modal></app-confirm-modal>
 </div>

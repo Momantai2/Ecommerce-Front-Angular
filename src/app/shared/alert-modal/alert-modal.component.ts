@@ -6,6 +6,8 @@ import { NgbModal, NgbModalRef,  } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-alert-modal',
   templateUrl: './alert-modal.component.html',
+      styleUrls: ['./alert-modal.component.css'],
+
    imports: [NgIf, NgFor],
   standalone: true,
 })

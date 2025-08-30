@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CarritoResponseDTO } from '../models/carrito.model';
-import { ItemCarritoRequestDTO } from '../models/item-carrito.model';
+import { ItemCarritoRequestDTO, itemCarritoResponseDTO } from '../models/item-carrito.model';
 import { environment } from '../environment/environment';
 
 @Injectable({
@@ -32,4 +32,32 @@ private apiUrl = `${environment.apispirngUrl}/carritos`;
 
   return this.http.post(`${this.apiUrl}/usuario/agregar`, item, { headers });
 }
+
+
+//carrito sin usuario 
+getLocalCarrito(): itemCarritoResponseDTO[] {
+  const carrito = localStorage.getItem('carrito');
+  return carrito ? JSON.parse(carrito) : [];
+}
+
+setLocalCarrito(items: itemCarritoResponseDTO[]): void {
+  localStorage.setItem('carrito', JSON.stringify(items));
+}
+
+limpiarLocalCarrito(): void {
+  localStorage.removeItem('carrito');
+}
+
+transferirCarritoLocal(items: ItemCarritoRequestDTO[]): Observable<any> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+  return this.http.post(`${this.apiUrl}/usuario/transferir-carrito`, items, { headers });
+}
+
+clearLocalCarrito(): void {
+  localStorage.removeItem('carrito');
+}
+
+
 }

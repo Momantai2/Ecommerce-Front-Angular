@@ -1,0 +1,26 @@
+<div class="pagination-controls">
+  <div class="page-info">
+    <button class="nav-button" (click)="previousPage()" [disabled]="currentPage === 0">
+      ⬅ Anterior
+    </button>
+
+    <span class="page-summary">
+      {{ firstItem }} - {{ lastItem }} de {{ totalElements }} registros
+    </span>
+
+    <button class="nav-button" (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">
+      Siguiente ➡
+    </button>
+  </div>
+
+  <div class="page-size">
+    <label for="pageSizeSelect">Mostrar:</label>
+    <select id="pageSizeSelect" [value]="pageSize" (change)="onPageSizeChange($event)">
+      <option [value]="5">5</option>
+      <option [value]="10">10</option>
+      <option [value]="20">20</option>
+      <option [value]="50">50</option>
+    </select>
+    <span>por página</span>
+  </div>
+</div>

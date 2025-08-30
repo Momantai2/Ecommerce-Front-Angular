@@ -1,22 +1,36 @@
+
 html, body {
   height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
+  background-color: #f8f9fa; /* El mismo fondo que tu layout */
+  overflow-x: hidden;
 }
 
 app-root {
   display: flex;
   flex-direction: column;
-  flex: 1;
   min-height: 100vh;
 }
 
- /* Contenido principal */
-    .main-content {
-      margin-left: 250px;
-      padding: 20px;
-      flex: 1;
-    }
+
+.main-content {
+
+  padding: 80px 30px 30px;
+  flex: 1;             /* ✅ Permite crecer dentro del contenedor */
+  /* min-height: 100vh; ❌ quítalo */
+}
+
  
+    /* RESPONSIVE BÁSICO */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 220px;
+  }
+
+
+  .admin-navbar {
+    left: 220px;
+  }
+}

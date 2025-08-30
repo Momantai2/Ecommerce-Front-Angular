@@ -3,6 +3,9 @@ export interface categoriaResponseDTO {
   nombre: string;
   descripcion: string;
   estado: boolean;
+
+    showMenu?: boolean;
+    
 }
 
 export interface categoriaRequestDTO {

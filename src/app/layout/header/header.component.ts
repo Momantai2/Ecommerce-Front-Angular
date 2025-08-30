@@ -8,11 +8,12 @@ import { Subscription } from 'rxjs';
   selector: 'app-header',
   imports: [RouterLink, NgIf] ,
   templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css']
+
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   username: string | null = null;
   rol: string | null = null;
-
   isLoggedIn = false;
 
   private subs: Subscription[] = [];
@@ -25,6 +26,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.authService.username$.subscribe(name => this.username = name),
 this.authService.rol$.subscribe(role => {
   console.log('Rol actual:', role);
+
+  
 })
     );
   }

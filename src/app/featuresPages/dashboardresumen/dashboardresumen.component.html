@@ -1,6 +1,82 @@
-<p>dashboardresumen works!</p>
 <div class="main-content">
-    <h3>Usuarios por Género</h3>
-    <canvas baseChart [data]="barChartData" [options]="barChartOptions" [type]="barChartType">
-    </canvas>
+
+    <h3>DASHBOARD MI MERCADITO</h3>
+
+    <div class="row text-center mb-4">
+        <div class="col card p-3">
+            <h5>Usuarios</h5>
+            <p>{{ resumen.totalUsuarios }}</p>
+        </div>
+        <div class="col card p-3">
+            <h5>Productos</h5>
+            <p>{{ resumen.totalProductos }}</p>
+        </div>
+        <div class="col card p-3">
+            <h5>Pedidos</h5>
+            <p>{{ resumen.totalPedidos }}</p>
+        </div>
+        <div class="col card p-3">
+            <h5>Ingresos Totales</h5>
+            <p>S/ {{ resumen.totalIngresos | number:'1.2-2' }}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Ventas mensuales -->
+        <div class="col-md-6 mb-4 h-100">
+            <div class="card p-3 h-100">
+                <h5 class="text-center">📈 Ventas por mes</h5>
+                <canvas baseChart [data]="barChartData" [options]="barChartOptions" [type]="barChartType"
+                    #ventasChart></canvas>
+            </div>
+        </div>
+
+        <!-- Productos más vendidos -->
+        <div class="col-md-6 mb-4 h-100">
+            <div class="card p-3 h-100">
+                <h5 class="text-center">🔥 Productos más vendidos</h5>
+                <canvas baseChart [data]="productosChartData" [options]="productosChartOptions"
+                    [type]="productosChartType" #productosChart></canvas>
+            </div>
+        </div>
+
+        <!-- Pedidos por estado -->
+        <div class="col-md-6 mb-4 h-100">
+            <div class="card p-3 h-100">
+                <h5 class="text-center">🧾 Pedidos por estado</h5>
+                <canvas baseChart [data]="estadoChartData" [options]="estadoChartOptions" [type]="estadoChartType"
+                    #estadoChart></canvas>
+            </div>
+        </div>
+
+        <!-- Categorias mas vendidas -->
+        <div class="col-md-6 mb-4 h-100">
+            <div class="card p-3 h-100">
+                <h5 class="text-center">🏷️ Categorías más vendidas</h5>
+                <canvas baseChart [data]="categoriasChartData" [options]="categoriasChartOptions"
+                    [type]="categoriasChartType" #categoriasChart></canvas>
+            </div>
+        </div>
+
+ <!-- Productos con stock bajo -->
+        <div class="col-md-12 mb-4 d-flex justify-content-center">
+            <div class="card p-3 w-75">
+            <div *ngIf="resumen?.lowStockProducts as productosBajoStock">
+  <ng-container *ngIf="productosBajoStock.length > 0; else noStock">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let p of productosBajoStock">
+        producto: {{ p.nombre }} — stock: {{ p.stock }}
+      </li>
+    </ul>
+  </ng-container>
+  <ng-template #noStock>
+    <p class="text-center">No hay productos con stock bajo 🎉</p>
+  </ng-template>
+</div>
+
+
+            </div>
+        </div>
+    </div>
+
 </div>

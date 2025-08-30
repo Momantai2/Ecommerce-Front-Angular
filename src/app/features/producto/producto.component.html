@@ -1,59 +1,70 @@
 <div class="main-content">
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-    <h1 style="margin: 0; flex-grow: 1;">Lista de Productos</h1>
+  <div class="card shadow">
+    <!-- Encabezado -->
+    <div class="card-header">
+      <div
+        class="d-flex align-items-center justify-content-between flex-wrap gap-2 w-100"
+      >
+        <!-- Título -->
+        <div class="me-3">
+          <h2 class="card-title m-0">Gestión de Productos</h2>
+        </div>
 
-    <button class="btn btn-primary" style="white-space: nowrap;" (click)="abrirModalCrear()">Añadir Producto</button>
+        <!-- Filtros de búsqueda -->
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+          <button class="btn-clear" (click)="quitarFiltros()">✕</button>
+          <input
+            type="text"
+            [(ngModel)]="filtroNombre"
+            placeholder="Nombre"
+            class="filtro-input"
+            style="width: 150px"
+            (keyup.enter)="buscar()"
+          />
+          <select
+            [(ngModel)]="filtroEstado"
+            (ngModelChange)="buscar()"
+            class="custom-select"
+          >
+            <option [ngValue]="null">Todos</option>
+            <option [ngValue]="true">Activo</option>
+            <option [ngValue]="false">Inactivo</option>
+          </select>
 
-    <app-modal-form #modal [title]="modalTitulo" (onSave)="guardar()">
-      <app-modal-producto [producto]="itemSeleccionado" [readonly]="soloLectura" [categorias]="categorias"
-        [medidas]="medidas"></app-modal-producto>
-    </app-modal-form>
+          <button (click)="buscar()" class="filtro-boton">Buscar</button>
+        </div>
+
+        <!-- Botón de nuevo categoria -->
+        <div>
+          <button class="new-button" (click)="abrirModalCrear()">
+            <span class="icon">+</span> Nuevo Producto
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <app-data-table
+        [columns]="columns"
+        [data]="data"
+        [totalElements]="totalElements"
+        [currentPage]="currentPage"
+        [pageSize]="pageSize"
+        [loading]="loading"
+        (pageChange)="onPageChange($event)"
+        (pageSizeChange)="onPageSizeChange($event)"
+        (rowAction)="onRowAction($event)"
+      >
+      </app-data-table>
+    </div>
   </div>
-
-  <table class="table" style="table-layout: fixed;">
-    <thead>
-      <tr>
-        <th>Nombre Producto</th>
-        <th>Descripción</th>
-        <th>Precio</th>
-        <th>Imagen</th>
-        <th>Stock</th>
-        <th>Categoria</th>
-        <th>Unidad de Medida</th>
-        <th>Estado</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let s of producto">
-        <td>{{ s.nombre }}</td>
-        <td>{{ s.descripcion }}</td>
-        <td>{{ s.precio }}</td>
-        <td><img [src]=" apiUrl + s.imagenUrl" alt="{{ s.nombre }}" style="width: 100%; height: 150px; object-fit: contain; " ></td>
-        <td>{{ s.stock }}</td>
-        <td>{{ obtenerNombreCategorias(s.idCategoria) }}</td>
-        <td>{{ obtenerNombreUnidadMedidas(s.idUnidadMedida) }}</td>
-        <td> <span [ngClass]="s.estado ? 'badge bg-success' : 'badge bg-danger'">
-            {{ s.estado ? 'Activo' : 'Inactivo' }}
-          </span>
-        <td>
-          <div class="dropdown">
-            <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              ⋮
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" (click)="abrirModalDetalle(s)">Ver Detalles</a></li>
-              <li><a class="dropdown-item" (click)="abrirModalEditar(s)">Editar</a></li>
-              <li><a class="dropdown-item text-danger"
-                  (click)="s.idProducto !== undefined && confirmarEliminar(s.idProducto)">Eliminar</a></li>
-            </ul>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
 </div>
 
+<!-- Modal de creación/edición -->
+<app-modal-form #modal [title]="modalTitulo" (onSave)="guardar()">
+  <app-modal-producto [producto]="itemSeleccionado" [readonly]="soloLectura">
+  </app-modal-producto>
+</app-modal-form>
 
+<!-- Modal de confirmación -->
 <app-confirm-modal #confirmModal (onConfirm)="eliminar()"></app-confirm-modal>

@@ -1,14 +1,70 @@
-# Node.js
-node_modules/
-dist/
+.env# ==========================================
+# Java / Spring Boot
+# ==========================================
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+*.log
+*.tmp
+*.pid
+*.hprof
+
+# Spring Boot specific
+application.properties
+application.yml
+application-*.yml
+application-*.properties
 .env
 
-# Angular build output
-.angular/
-.idea/
-.vscode/
-*.log
-.DS_Store
+# Maven / Gradle
+.mvn/
+!/.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+.gradle/
+build/
 
-# Compiled output
+# IDEs
+*.idea/
+*.ipr
+*.iws
+*.bak
+*.swp
+*.DS_Store
+Thumbs.db
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# VSCode
+.vscode/
+
+# ==========================================
+# Angular / Node
+# ==========================================
+node_modules/
+dist/
+tmp/
 out-tsc/
+coverage/
+.angular/
+.angular/cache/
+
+# Angular environment files
+src/environments/environment.ts
+src/environments/environment.prod.ts
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==========================================
+# OS Specific
+# ==========================================
+.DS_Store
+Thumbs.db

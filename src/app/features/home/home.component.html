@@ -1,24 +1,42 @@
 <div class="main-content">
-  <div>
-    <h1>Bienvenido</h1>
-    <p>Este es el contenido principal de la página.</p>
+  <div class="container">
+    <!-- Título de bienvenida -->
+    <div class="text-center mb-4">
+      <h2 class="display-5 fw-bold">
+        🧵 Bienvenido a nuestra tienda de productos artesanales
+      </h2>
+      <p class="text-muted">
+        Explora artículos hechos a mano con amor y dedicación.
+      </p>
+    </div>
 
-    <div class="botones-categorias">
-  <button (click)="seleccionarCategoria(null)" [class.active]="categoriaSeleccionadaId === null">Todas</button>
-  <button *ngFor="let cat of categorias"
-          (click)="seleccionarCategoria(cat.idCategoria)"
-          [class.active]="categoriaSeleccionadaId === cat.idCategoria">
-    {{ cat.nombre }}
-  </button>
-</div>
+    <!-- Botones de categorías -->
+    <div
+      class="botones-categorias d-flex flex-wrap justify-content-center gap-2 mb-4"
+    >
+      <button
+        (click)="seleccionarCategoria(null)"
+        [class.active]="categoriaSeleccionadaId === null"
+        class="btn btn-outline-primary rounded-pill px-4 py-2"
+      >
+        Todas
+      </button>
 
+      <button
+        *ngFor="let cat of categorias"
+        (click)="seleccionarCategoria(cat.idCategoria)"
+        [class.active]="categoriaSeleccionadaId === cat.idCategoria"
+        class="btn btn-outline-secondary rounded-pill px-4 py-2"
+      >
+        {{ cat.nombre }}
+      </button>
+    </div>
 
-
-<app-listadoproductos 
-  [categoriaSeleccionadaId]="categoriaSeleccionadaId"
-  [categorias]="categorias">
-</app-listadoproductos>
+    <!-- Lista de productos -->
+    <app-listadoproductos
+      [categoriaSeleccionadaId]="categoriaSeleccionadaId"
+      [categorias]="categorias"
+    >
+    </app-listadoproductos>
   </div>
-
-
 </div>

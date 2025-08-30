@@ -1,21 +1,37 @@
 <div class="sidebar">
-  <h2>Mi Sitio</h2>
-  <a routerLink="/">Inicio</a>
-  <a *ngIf="isAdmin()" routerLink="/dashresumen">Dashboard Admin</a>
+  <h2>Mi Mercadito</h2>
 
-  <a *ngIf="isAdmin()"  (click)="toggleSubmenu()">Mantenimiento ▾</a>
+  <a routerLink="/" routerLinkActive="active">
+    <i class="fas fa-home"></i> Inicio
+  </a>
+
+  <a *ngIf="isAdmin()" routerLink="/dashresumen" routerLinkActive="active">
+    <i class="fas fa-chart-line"></i> Dashboard Admin
+  </a>
+
+  <a *ngIf="isAdmin()" (click)="toggleSubmenu()">
+    <i class="fas fa-cogs"></i> Mantenimiento ▾
+  </a>
   <div class="submenu" *ngIf="showSubmenu">
-    <a routerLink="/persona">Persona</a>
-    <a routerLink="/producto">producto</a>
-     <a routerLink="/sexo">Sexo</a>
-      <a routerLink="/rol">Rol</a>
-            <a routerLink="/usuario">Usuario</a>
-                  <a routerLink="/unidadMedida">Unidad de Medida</a>
-                                                <a routerLink="/categoria">Categoria</a>
+    <a routerLink="/persona" routerLinkActive="active">👤 Persona</a>
+    <a routerLink="/producto" routerLinkActive="active">📦 Producto</a>
+    <a routerLink="/sexo" routerLinkActive="active">🚻 Sexo</a>
+    <a routerLink="/rol" routerLinkActive="active">🔑 Rol</a>
+    <a routerLink="/usuario" routerLinkActive="active">🧑‍💻 Usuario</a>
+    <a routerLink="/unidadMedida" routerLinkActive="active">⚖️ Unidad</a>
+    <a routerLink="/categoria" routerLinkActive="active">🏷️ Categoría</a>
+        <a routerLink="/estado" routerLinkActive="active">🏷️ estado</a>
 
   </div>
 
-  <a *ngIf="isLoggedIn"  routerLink="/pedidos">pedidos</a>
-<a *ngIf="isLoggedIn" (click)="logout()">Cerrar Sesión</a>
+  <a *ngIf="isLoggedIn" routerLink="/pedidos" routerLinkActive="active">
+    <i class="fas fa-receipt"></i> Pedidos
+  </a>
+  <a routerLink="/nosotros" routerLinkActive="active">
+    <i class="fas fa-info-circle">></i> Sobre Nosotros
+  </a>
+
+  <a *ngIf="isLoggedIn" (click)="logout()">
+    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+  </a>
 </div>
-    

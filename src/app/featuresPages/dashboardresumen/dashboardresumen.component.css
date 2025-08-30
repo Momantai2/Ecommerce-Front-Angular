@@ -1,0 +1,20 @@
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card canvas {
+  width: 100% !important;
+  height: 220px !important;
+  max-height: 220px;
+}
+
+.row {
+  margin-bottom: 1rem;
+}
+
+.list-group-item {
+  font-size: 0.9rem;
+}

@@ -1,0 +1,70 @@
+<div class="main-content">
+  <div class="card shadow">
+    <!-- Encabezado en una sola fila -->
+    <div class="card-header">
+      <div
+        class="d-flex align-items-center justify-content-between flex-wrap gap-2 w-100"
+      >
+        <!-- Título -->
+        <div class="me-3">
+          <h2 class="card-title m-0">Gestión de Estados</h2>
+        </div>
+
+        <!-- Filtros de búsqueda -->
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+          <button class="btn-clear" (click)="quitarFiltros()">✕</button>
+          <input
+            type="text"
+            [(ngModel)]="filtroNombre"
+            placeholder="Nombre"
+            class="filtro-input"
+            style="width: 150px"
+            (keyup.enter)="buscar()"
+          />
+          <input
+            type="text"
+            [(ngModel)]="filtroDescripcion"
+            placeholder="Descripción"
+            class="filtro-input"
+            style="width: 150px"
+            (keyup.enter)="buscar()"
+          />
+          <button (click)="buscar()" class="filtro-boton">Buscar</button>
+        </div>
+
+        <!-- Botón de nuevo estado -->
+        <div>
+          <button class="new-button" (click)="abrirModalCrear()">
+            <span class="icon">+</span> Nuevo Estado
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <app-data-table
+        [columns]="columns"
+        [data]="data"
+        [totalElements]="totalElements"
+        [currentPage]="currentPage"
+        [pageSize]="pageSize"
+        [loading]="loading"
+        (pageChange)="onPageChange($event)"
+        (pageSizeChange)="onPageSizeChange($event)"
+        (rowAction)="onRowAction($event)"
+      >
+      </app-data-table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de creación/edición -->
+<app-modal-form #modal [title]="modalTitulo" (onSave)="guardar()">
+  <app-estado-modal
+    [estado]="itemSeleccionado"
+    [readonly]="soloLectura"
+  ></app-estado-modal>
+</app-modal-form>
+
+<!-- Modal de confirmación -->
+<app-confirm-modal #confirmModal (onConfirm)="eliminar()"></app-confirm-modal>

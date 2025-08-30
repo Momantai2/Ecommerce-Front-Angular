@@ -1,0 +1,63 @@
+<table class="data-table">
+  <thead>
+    <tr>
+      <th *ngFor="let col of columns" [style.width]="col.width || 'auto'">
+        {{ col.header }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of data">
+      <td *ngFor="let col of columns">
+        <ng-container [ngSwitch]="col.type">
+          <!-- Badge (estado) -->
+          <span
+            *ngSwitchCase="'badge'"
+            class="badge"
+            [ngClass]="col.badgeMap?.[item[col.key]]?.class || 'badge-default'"
+          >
+            {{ col.badgeMap?.[item[col.key]]?.text || item[col.key] }}
+          </span>
+
+          <!-- Acciones -->
+          <div *ngSwitchCase="'actions'" class="actions-container">
+            <button
+              *ngFor="let action of item.actions"
+              class="action-button"
+              [ngClass]="'action-' + action.type"
+              (click)="onAction(action.type, item)"
+            >
+              <span class="icon">{{ action.icon }}</span>
+              <span class="text">{{ action.label }}</span>
+            </button>
+          </div>
+
+          <!-- Imagen -->
+          <img
+            *ngSwitchCase="'image'"
+            [src]="item[col.key] || col.imageConfig?.defaultImage"
+            [alt]="col.imageConfig?.altText || ''"
+            [style.width]="col.imageConfig?.style?.width || '50px'"
+            [style.height]="col.imageConfig?.style?.height || 'auto'"
+            [style.borderRadius]="col.imageConfig?.style?.borderRadius || '0'"
+            [style.objectFit]="col.imageConfig?.style?.objectFit || 'cover'"
+            class="table-image"
+          />
+
+          <!-- Valor por defecto -->
+          <span *ngSwitchDefault>{{ item[col.key] }}</span>
+        </ng-container>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Componente de paginación -->
+<app-pagination
+  [currentPage]="currentPage"
+  [pageSize]="pageSize"
+  [totalElements]="totalElements"
+  (pageChange)="onPageChange($event)"
+  (pageSizeChange)="onPageSizeChange($event)"
+>
+</app-pagination>

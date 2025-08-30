@@ -23,6 +23,26 @@ private apiUrl = `${environment.apispirngUrl}/pedidos`;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<PedidoResponseDTO[]>(`${this.apiUrl}`, { headers });
   }
+actualizarEstadoPedido(idPedido: number, nuevoEstado: string) {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  const body = { estado: nuevoEstado }; // enviar el nuevo estado
+
+  return this.http.put(`${this.apiUrl}/${idPedido}/estado`, body, { headers });
+}
+
+
+descargarBoleta(idPedido: number) {
+  const token = localStorage.getItem('token') || '';
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.get(`${this.apiUrl}/${idPedido}/boleta`, {
+    headers,
+    responseType: 'blob'
+  });
+}
+
+
+
 }
 
 

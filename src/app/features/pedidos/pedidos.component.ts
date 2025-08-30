@@ -7,11 +7,12 @@ import { AuthService } from '../../services/auth.service';
 import { environment } from '../../environment/environment';
 import { PedidoModalDetallesComponent } from './pedidomodaldetalles.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmModalComponent } from '../../shared/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-pedidos',
   standalone: true,
-  imports: [NgIf, NgFor, DatePipe, AlertModalComponent,PedidoModalDetallesComponent],
+  imports: [NgIf, NgFor, DatePipe, AlertModalComponent,ConfirmModalComponent],
   templateUrl: './pedidos.component.html',
   styleUrls: ['./pedidos.component.css']
 })
@@ -22,6 +23,8 @@ export class PedidosComponent implements OnInit {
 public apiUrl = environment.apispirngUrl.replace('/api', ''); 
 
   @ViewChild(AlertModalComponent) alertModal!: AlertModalComponent;
+    @ViewChild(ConfirmModalComponent) confirModal!: ConfirmModalComponent;
+
 
 constructor(private pedidoService: PedidoService, private authService: AuthService, private modalService: NgbModal) {}
 
@@ -32,26 +35,48 @@ constructor(private pedidoService: PedidoService, private authService: AuthServi
   
     this.pedidoService.getPedidos().subscribe({
       next: (data) => this.pedidos = data,
-      error: (err) => this.error = 'Error al cargar pedidos: ' + err.message
+      error: (err) => this.error = 'Debe ingresar con su cuenta o registrarse  '
     });
     
   }
 
-// verDetalles(pedido: PedidoResponseDTO) {
-//   const detalles = pedido.items.map(item => {
-//     const nombre = item.nombreProducto?.trim() || 'Producto desconocido';
-//     return `${nombre} - Cantidad: ${item.cantidad} - Precio unitario: $${item.precioUnitario.toFixed(2)} - imagen: ${this.apiUrl + item.imagenUrl}`;
-//   });
+verBoleta(pedido: PedidoResponseDTO) {
+  this.pedidoService.descargarBoleta(pedido.idPedido).subscribe({
+    next: (blob) => {
+      const url = window.URL.createObjectURL(blob);
+      window.open(url, '_blank');
+    },
+    error: (err) => {
+      console.error('Error al descargar la boleta', err);
+      this.alertModal.open('Error', '', ['No se pudo descargar la boleta.']);
+    }
+  });
+}
 
-//   const total = pedido.items.reduce((acc, item) => acc + item.cantidad * item.precioUnitario, 0);
-//   detalles.push(`Total del pedido: $${total.toFixed(2)}`);
+cancelarPedido(pedido: PedidoResponseDTO) {
+  if (pedido.estado === 'Cancelado') {
+    this.alertModal.open('Pedido ya cancelado', '', ['Este pedido ya fue cancelado anteriormente.']);
+    return;
+  }
 
-//   this.alertModal.open(
-//     `Pedido #${pedido.idPedido}`,
-//     `Productos del pedido de ${pedido.nombreUsuario}`,
-//     detalles
-//   );
-// }
+  this.confirModal.open(`¿Está seguro de cancelar el pedido #${pedido.idPedido}?`).then(
+    (confirmed: boolean) => {
+      if (confirmed) {
+        this.pedidoService.actualizarEstadoPedido(pedido.idPedido, 'Cancelado').subscribe({
+          next: () => {
+            pedido.estado = 'Cancelado';
+            this.alertModal.open('Pedido Cancelado', '', [`El pedido #${pedido.idPedido} fue cancelado exitosamente.`]);
+          },
+          error: (err) => {
+            console.error(err);
+            this.alertModal.open('Error', '', ['No se pudo cancelar el pedido. Intente más tarde.']);
+          }
+        });
+      }
+    }
+  ).catch(() => {});
+}
+
 
 // método para abrir modal detalles
 verDetalles(pedido: PedidoResponseDTO) {

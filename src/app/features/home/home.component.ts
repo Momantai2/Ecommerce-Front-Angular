@@ -1,28 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { ListadoproductosComponent } from "../../featuresPages/listadoproductos/listadoproductos.component";
+import { ListadoproductosComponent } from '../../featuresPages/listadoproductos/listadoproductos.component';
 import { categoriaResponseDTO } from '../../models/categoria.model';
-import { CategoriaService } from '../../services/categoria.service';
 import { NgFor } from '@angular/common';
+import { CrudService } from '../../shared/crud-table/crud.service';
 
 @Component({
   selector: 'app-home',
-  standalone:true,
+  standalone: true,
   imports: [ListadoproductosComponent, NgFor],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
-export class HomeComponent implements OnInit{
-
- categorias: categoriaResponseDTO[] = [];
+export class HomeComponent implements OnInit {
+  categorias: categoriaResponseDTO[] = [];
   categoriaSeleccionadaId: number | null = null;
-
-  constructor(private categoriaService: CategoriaService) {}
+  constructor(private crudService: CrudService<categoriaResponseDTO>) {}
 
   ngOnInit() {
-    this.categoriaService.getAll().subscribe({
-      next: (data) => this.categorias = data,
-      error: (err) => console.error('Error cargando categorías', err)
+    this.crudService.setEndpoint('categorias');
+
+    this.crudService.getAll().subscribe({
+      next: (data) => {
+        this.categorias = data.filter((cat) => cat.estado === true);
+      },
+      error: (err) => console.error('Error cargando categorías', err),
     });
   }
 

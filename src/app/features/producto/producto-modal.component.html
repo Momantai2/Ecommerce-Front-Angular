@@ -1,74 +1,114 @@
-  <form>
-    <div class="mb-3">
-      <label>Nombre</label>
-      <input type="text" class="form-control" [(ngModel)]="producto.nombre" name="nombre" [readonly]="readonly">
-    </div>
-    <div class="mb-3">
-      <label>Descripcion</label>
-      <input type="text" class="form-control" [(ngModel)]="producto.descripcion" name="descripcion" [readonly]="readonly">
-    </div>
+<form class="form-modal">
+  <div class="form-group">
+    <label for="nombre">Nombre</label>
+    <input
+      type="text"
+      id="nombre"
+      [(ngModel)]="producto.nombre"
+      name="nombre"
+      [readonly]="readonly"
+    />
+  </div>
 
-     <div class="mb-3">
-      <label>Precio</label>
-      <input type="number" class="form-control" [(ngModel)]="producto.precio" name="precio" [readonly]="readonly">
-    </div>
+  <div class="form-group">
+    <label for="descripcion">Descripción</label>
+    <input
+      type="text"
+      id="descripcion"
+      [(ngModel)]="producto.descripcion"
+      name="descripcion"
+      [readonly]="readonly"
+    />
+  </div>
 
-    <div class="mb-3">
-  <label>Imagen</label>
-  <input
-    type="file"
-    class="form-control"
-    [disabled]="readonly"
-    (change)="onFileSelected($event)"
-    accept="image/*"
-  />
-</div>
+  <div class="form-group">
+    <label for="precio">Precio</label>
+    <input
+      type="text"
+      id="precio"
+      [(ngModel)]="producto.precio"
+      name="precio"
+      [readonly]="readonly"
+    />
+  </div>
 
-<div class="mb-3" *ngIf="producto.imagenUrl">
-  <label>Vista previa:</label>
-  <img [src]="'http://localhost:8080' + producto.imagenUrl" class="img-thumbnail" style="max-width: 200px;" />
-</div>
+  <div class="form-group">
+    <label for="imagen">Imagen</label>
+    <input
+      type="file"
+      id="imagen"
+      (change)="onFileSelected($event)"
+      accept="image/*"
+      [disabled]="readonly"
+    />
+    <label>Vista previa:</label>
+    <img
+      *ngIf="producto.imagenUrl"
+      [src]="getImagenCompleta(producto.imagenUrl)"
+      alt="Vista previa"
+      class="preview-image"
+    />
+  </div>
 
+  <div class="form-group">
+    <label for="stock">Stock</label>
+    <input
+      type="text"
+      id="stock"
+      [(ngModel)]="producto.stock"
+      name="stock"
+      [readonly]="readonly"
+    />
+  </div>
 
-    <div class="mb-3">
-      <label>Stock</label>
-      <input type="text" class="form-control" [(ngModel)]="producto.stock" name="stock" [readonly]="readonly">
-    </div>
-
-      <div class="mb-3">
-      <label>Categoria</label>
+  <div class="custom-select-wrapper">
+    <label for="categoria">Categoría</label>
+    <div class="custom-select">
       <select
-    class="form-select"
-    id="categoria"
-    [(ngModel)]="producto.idCategoria"
-    name="categoria"
-    [disabled]="readonly"
-  >
-    <option *ngFor="let categoria of categorias" [value]="categoria.idCategoria">{{ categoria.nombre }}</option>
-  </select>
-
+        id="categoria"
+        [(ngModel)]="producto.idCategoria"
+        name="categoria"
+        [disabled]="readonly"
+        required
+      >
+        <option *ngFor="let c of categorias" [value]="c.idCategoria">
+          {{ c.nombre }}
+        </option>
+      </select>
     </div>
+  </div>
 
-    <div class="mb-3">
-      <label>Unidad Medida</label>
+  <div class="custom-select-wrapper">
+    <label for="unidad">Unidad de Medida</label>
+    <div class="custom-select">
       <select
-    class="form-select"
-    id="unidadMedida"
-    [(ngModel)]="producto.idUnidadMedida"
-    name="unidadMedida"
-    [disabled]="readonly"
-  >
-    <option *ngFor="let unidad of medidas" [value]="unidad.idUnidadMedida">{{ unidad.nombre }}</option>
-  </select>
-
+        id="unidad"
+        name="idUnidadMedida"
+        [(ngModel)]="producto.idUnidadMedida"
+        [disabled]="readonly"
+        class="custom-select"
+      >
+        <option *ngFor="let u of unidades" [value]="u.idUnidadMedida">
+          {{ u.nombre }}
+        </option>
+      </select>
     </div>
+  </div>
 
-    <div class="form-check form-switch">
-    <input class="form-check-input" type="checkbox" id="estadoSwitch" [(ngModel)]="producto.estado" name="estado" [disabled]="readonly" />
-    <label class="form-check-label" for="estadoSwitch">
-      {{ producto.estado ? 'Activo' : 'Inactivo' }}
+  <div class="switch-wrapper">
+    <label class="switch">
+      <input
+        type="checkbox"
+        [(ngModel)]="producto.estado"
+        name="estado"
+        [disabled]="readonly"
+      />
+      <span class="slider"></span>
     </label>
+    <span class="estado-label">
+      {{ producto.estado ? "Activo" : "Inactivo" }}
+    </span>
   </div>
 
   <app-alert-modal #alertModal></app-alert-modal>
-  </form>
+</form>

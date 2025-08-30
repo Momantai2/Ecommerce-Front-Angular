@@ -1,0 +1,25 @@
+<form class="form-modal">
+  <div class="form-group">
+    <label for="nombre">Nombre</label>
+    <input
+      type="text"
+      id="nombre"
+      [(ngModel)]="estado.nombre"
+      name="nombre"
+      [readonly]="readonly"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="descripcion">Descripción</label>
+    <input
+      type="text"
+      id="descripcion"
+      [(ngModel)]="estado.descripcion"
+      name="descripcion"
+      [readonly]="readonly"
+    />
+  </div>
+
+  <app-alert-modal #alertModal></app-alert-modal>
+</form>
